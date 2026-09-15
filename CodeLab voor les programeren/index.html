@@ -2,12 +2,809 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>CodeLab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeLab | HTML Leren</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0f172a;
+            color: white;
+        }
+
+        header {
+            background: #111827;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #263248;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            font-size: 15px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        nav button:hover {
+            color: #38bdf8;
+        }
+
+        .page {
+            display: none;
+            max-width: 1100px;
+            margin: auto;
+            padding: 45px 20px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #38bdf8;
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 19px;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        .main-button {
+            margin-top: 30px;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            background: #38bdf8;
+            color: #082f49;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .main-button:hover {
+            background: #7dd3fc;
+        }
+
+        h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .lessons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .lesson {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .lesson:hover {
+            transform: translateY(-4px);
+            border-color: #38bdf8;
+        }
+
+        .lesson-number {
+            color: #38bdf8;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .lesson h3 {
+            margin-bottom: 10px;
+        }
+
+        .lesson p {
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .lesson-content {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #334155;
+        }
+
+        .lesson-content p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin: 15px 0;
+        }
+
+        code {
+            color: #7dd3fc;
+        }
+
+        pre {
+            background: #020617;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #334155;
+        }
+
+        .editor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 400px;
+            background: #020617;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: Consolas, monospace;
+            font-size: 15px;
+            resize: vertical;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #38bdf8;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            background: white;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .editor-title {
+            margin-bottom: 8px;
+            color: #cbd5e1;
+        }
+
+        .exercise {
+            margin-top: 30px;
+            background: #172554;
+            border: 1px solid #2563eb;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .exercise h3 {
+            margin-bottom: 10px;
+        }
+
+        .exercise p {
+            color: #bfdbfe;
+            line-height: 1.6;
+        }
+
+        .quiz-question {
+            background: #1e293b;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        .quiz-question h3 {
+            margin-bottom: 15px;
+        }
+
+        .answer {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #0f172a;
+            color: white;
+            border: 1px solid #334155;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .answer:hover {
+            border-color: #38bdf8;
+        }
+
+        .progress-box {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #334155;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: #0f172a;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 20%;
+            background: #38bdf8;
+            transition: 0.4s;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            padding: 40px 20px;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav button {
+                margin: 4px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .editor {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>Welkom bij CodeLab!</h1>
-    <p>Hier leer je programmeren.</p>
+<header>
+    <div class="logo">&lt;CodeLab&gt;</div>
+
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('lessons')">Lessen</button>
+        <button onclick="showPage('editor')">Editor</button>
+        <button onclick="showPage('quiz')">Quiz</button>
+        <button onclick="showPage('progress')">Voortgang</button>
+    </nav>
+</header>
+
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+    <div class="hero">
+        <h1>Leer <span>HTML</span> programmeren 🚀</h1>
+
+        <p>
+            Leer stap voor stap hoe je je eigen websites maakt.
+            Begin met simpele HTML-tags en bouw uiteindelijk je eigen website.
+        </p>
+
+        <button class="main-button" onclick="showPage('lessons')">
+            Start met leren
+        </button>
+    </div>
+
+</section>
+
+
+<!-- LESSEN -->
+<section id="lessons" class="page">
+
+    <h2>📚 HTML-lessen</h2>
+    <p class="subtitle">
+        Kies een les en ontdek hoe HTML werkt.
+    </p>
+
+    <div class="lessons">
+
+        <div class="lesson" onclick="openLesson(1)">
+            <div class="lesson-number">LES 1</div>
+            <h3>Wat is HTML?</h3>
+            <p>Leer wat HTML is en hoe een HTML-pagina wordt opgebouwd.</p>
+        </div>
+
+        <div class="lesson" onclick="openLesson(2)">
+            <div class="lesson-number">LES 2</div>
+            <h3>Tekst & koppen</h3>
+            <p>Leer werken met h1, h2, p en andere teksttags.</p>
+        </div>
+
+        <div class="lesson" onclick="openLesson(3)">
+            <div class="lesson-number">LES 3</div>
+            <h3>Links</h3>
+            <p>Leer hoe je links naar andere websites maakt.</p>
+        </div>
+
+        <div class="lesson" onclick="openLesson(4)">
+            <div class="lesson-number">LES 4</div>
+            <h3>Afbeeldingen</h3>
+            <p>Leer afbeeldingen toevoegen aan je website.</p>
+        </div>
+
+        <div class="lesson" onclick="openLesson(5)">
+            <div class="lesson-number">LES 5</div>
+            <h3>Lijsten</h3>
+            <p>Maak genummerde en ongenummerde lijsten.</p>
+        </div>
+
+        <div class="lesson" onclick="openLesson(6)">
+            <div class="lesson-number">LES 6</div>
+            <h3>Divs</h3>
+            <p>Leer hoe je onderdelen van je website kunt groeperen.</p>
+        </div>
+
+        <div class="lesson" onclick="openLesson(7)">
+            <div class="lesson-number">LES 7</div>
+            <h3>Formulieren</h3>
+            <p>Maak invoervelden, knoppen en formulieren.</p>
+        </div>
+
+        <div class="lesson" onclick="openLesson(8)">
+            <div class="lesson-number">LES 8</div>
+            <h3>Eindproject 🏆</h3>
+            <p>Bouw je eigen complete website.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LES CONTENT -->
+<section id="lesson" class="page">
+
+    <div class="lesson-content">
+
+        <h2 id="lessonTitle">Les</h2>
+
+        <div id="lessonText"></div>
+
+        <button class="main-button" onclick="showPage('editor')">
+            Zelf proberen →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- EDITOR -->
+<section id="editor" class="page">
+
+    <h2>💻 HTML Editor</h2>
+
+    <p class="subtitle">
+        Schrijf HTML links en bekijk je website rechts.
+    </p>
+
+    <div class="editor">
+
+        <div>
+            <div class="editor-title">📝 Jouw HTML-code</div>
+
+            <textarea id="codeInput"><!DOCTYPE html>
+<html>
+<head>
+    <title>Mijn website</title>
+</head>
+
+<body>
+
+    <h1>Hallo wereld!</h1>
+
+    <p>Dit is mijn eerste website.</p>
+
+</body>
+</html></textarea>
+        </div>
+
+        <div>
+            <div class="editor-title">🌐 Resultaat</div>
+
+            <iframe id="preview"></iframe>
+        </div>
+
+    </div>
+
+    <div class="exercise">
+
+        <h3>🎯 Opdracht</h3>
+
+        <p>
+            Maak een pagina met een grote titel met jouw naam
+            en daaronder een zin over jezelf.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- QUIZ -->
+<section id="quiz" class="page">
+
+    <h2>🧠 HTML Quiz</h2>
+
+    <p class="subtitle">
+        Test hoeveel je al weet!
+    </p>
+
+    <div class="quiz-question">
+
+        <h3>1. Welke tag gebruik je voor een grote titel?</h3>
+
+        <button class="answer" onclick="checkAnswer(this, false)">
+            &lt;p&gt;
+        </button>
+
+        <button class="answer" onclick="checkAnswer(this, true)">
+            &lt;h1&gt;
+        </button>
+
+        <button class="answer" onclick="checkAnswer(this, false)">
+            &lt;img&gt;
+        </button>
+
+    </div>
+
+
+    <div class="quiz-question">
+
+        <h3>2. Welke tag gebruik je voor een afbeelding?</h3>
+
+        <button class="answer" onclick="checkAnswer(this, false)">
+            &lt;picturetext&gt;
+        </button>
+
+        <button class="answer" onclick="checkAnswer(this, true)">
+            &lt;img&gt;
+        </button>
+
+        <button class="answer" onclick="checkAnswer(this, false)">
+            &lt;image&gt;
+        </button>
+
+    </div>
+
+
+    <div class="quiz-question">
+
+        <h3>3. Welke tag gebruik je voor een gewone paragraaf?</h3>
+
+        <button class="answer" onclick="checkAnswer(this, true)">
+            &lt;p&gt;
+        </button>
+
+        <button class="answer" onclick="checkAnswer(this, false)">
+            &lt;text&gt;
+        </button>
+
+        <button class="answer" onclick="checkAnswer(this, false)">
+            &lt;paragraph&gt;
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- VOORTGANG -->
+<section id="progress" class="page">
+
+    <h2>🏆 Mijn voortgang</h2>
+
+    <p class="subtitle">
+        Bekijk hoe ver je bent met HTML.
+    </p>
+
+    <div class="progress-box">
+
+        <h3>HTML leren</h3>
+
+        <p id="progressText">
+            1 van 8 lessen voltooid
+        </p>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    &lt;CodeLab&gt; • HTML leren voor beginners 💻
+</footer>
+
+
+<script>
+
+    let completedLessons = 1;
+
+
+    function showPage(pageId) {
+
+        document.querySelectorAll(".page").forEach(page => {
+            page.classList.remove("active");
+        });
+
+        document.getElementById(pageId).classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        if (pageId === "editor") {
+            runCode();
+        }
+    }
+
+
+    const lessons = {
+
+        1: {
+            title: "Les 1: Wat is HTML?",
+            text: `
+                <p>
+                    HTML staat voor <b>HyperText Markup Language</b>.
+                    HTML wordt gebruikt om de structuur van een website te maken.
+                </p>
+
+                <p>
+                    HTML werkt met <b>tags</b>. Bijvoorbeeld:
+                </p>
+
+                <pre>&lt;h1&gt;Hallo wereld!&lt;/h1&gt;</pre>
+
+                <p>
+                    De browser ziet deze code en maakt er een grote titel van.
+                </p>
+            `
+        },
+
+        2: {
+            title: "Les 2: Tekst & koppen",
+            text: `
+                <p>
+                    Met <code>&lt;h1&gt;</code> maak je een grote titel.
+                    Met <code>&lt;p&gt;</code> maak je een gewone tekst.
+                </p>
+
+                <pre>&lt;h1&gt;Mijn website&lt;/h1&gt;
+&lt;p&gt;Welkom op mijn website!&lt;/p&gt;</pre>
+
+                <p>
+                    Je kunt ook kleinere koppen gebruiken:
+                    <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, enzovoort.
+                </p>
+            `
+        },
+
+        3: {
+            title: "Les 3: Links",
+            text: `
+                <p>
+                    Met de <code>&lt;a&gt;</code>-tag maak je een link.
+                </p>
+
+                <pre>&lt;a href="https://www.google.com"&gt;
+Google
+&lt;/a&gt;</pre>
+
+                <p>
+                    Het <code>href</code>-attribuut bepaalt waar de link naartoe gaat.
+                </p>
+            `
+        },
+
+        4: {
+            title: "Les 4: Afbeeldingen",
+            text: `
+                <p>
+                    Met <code>&lt;img&gt;</code> voeg je een afbeelding toe.
+                </p>
+
+                <pre>&lt;img src="foto.jpg" alt="Mijn foto"&gt;</pre>
+
+                <p>
+                    <code>src</code> vertelt waar de afbeelding staat.
+                </p>
+            `
+        },
+
+        5: {
+            title: "Les 5: Lijsten",
+            text: `
+                <p>
+                    Met <code>&lt;ul&gt;</code> maak je een lijst met bolletjes.
+                </p>
+
+                <pre>&lt;ul&gt;
+    &lt;li&gt;Appel&lt;/li&gt;
+    &lt;li&gt;Banaan&lt;/li&gt;
+    &lt;li&gt;Peer&lt;/li&gt;
+&lt;/ul&gt;</pre>
+
+                <p>
+                    Met <code>&lt;ol&gt;</code> krijg je een genummerde lijst.
+                </p>
+            `
+        },
+
+        6: {
+            title: "Les 6: Divs",
+            text: `
+                <p>
+                    Een <code>&lt;div&gt;</code> gebruik je om onderdelen
+                    van je website bij elkaar te zetten.
+                </p>
+
+                <pre>&lt;div&gt;
+    &lt;h2&gt;Mijn hobby&lt;/h2&gt;
+    &lt;p&gt;Ik hou van programmeren!&lt;/p&gt;
+&lt;/div&gt;</pre>
+            `
+        },
+
+        7: {
+            title: "Les 7: Formulieren",
+            text: `
+                <p>
+                    Met formulieren kun je informatie van bezoekers vragen.
+                </p>
+
+                <pre>&lt;input type="text" placeholder="Je naam"&gt;
+&lt;button&gt;Verstuur&lt;/button&gt;</pre>
+            `
+        },
+
+        8: {
+            title: "Les 8: Eindproject 🏆",
+            text: `
+                <p>
+                    Tijd voor het echte werk!
+                </p>
+
+                <p>
+                    Maak een eigen website over bijvoorbeeld je hobby,
+                    favoriete game, sport of huisdier.
+                </p>
+
+                <p>
+                    Gebruik minimaal:
+                </p>
+
+                <ul>
+                    <li>Een grote titel</li>
+                    <li>Een paragraaf</li>
+                    <li>Een afbeelding</li>
+                    <li>Een link</li>
+                    <li>Een lijst</li>
+                </ul>
+            `
+        }
+
+    };
+
+
+    function openLesson(number) {
+
+        const lesson = lessons[number];
+
+        document.getElementById("lessonTitle").innerHTML = lesson.title;
+        document.getElementById("lessonText").innerHTML = lesson.text;
+
+        if (number > completedLessons) {
+            completedLessons = number;
+            updateProgress();
+        }
+
+        showPage("lesson");
+    }
+
+
+    function updateProgress() {
+
+        const percentage = (completedLessons / 8) * 100;
+
+        document.getElementById("progressFill").style.width =
+            percentage + "%";
+
+        document.getElementById("progressText").innerHTML =
+            completedLessons + " van 8 lessen voltooid";
+    }
+
+
+    function runCode() {
+
+        const code = document.getElementById("codeInput").value;
+
+        document.getElementById("preview").srcdoc = code;
+    }
+
+
+    document.getElementById("codeInput").addEventListener(
+        "input",
+        runCode
+    );
+
+
+    function checkAnswer(button, correct) {
+
+        if (correct) {
+
+            button.style.borderColor = "#22c55e";
+            button.style.background = "#14532d";
+            button.innerHTML += " ✅";
+
+        } else {
+
+            button.style.borderColor = "#ef4444";
+            button.style.background = "#450a0a";
+            button.innerHTML += " ❌";
+
+        }
+
+    }
+
+
+    updateProgress();
+    runCode();
+
+</script>
 
 </body>
 </html>
